@@ -1,4 +1,4 @@
-<script>
+
   $(function() {
    
 
@@ -8,7 +8,7 @@
     function taskHtml(task) {
       var checkedStatus = task.done ? "checked" : "";
       var liClass = task.done ? "completed" : "";
-      var liElement = '<li id="listItem-' + task.id +'" class="' + liClass + '">' + 
+      var liElement = '<li id="listItem-' + task.id +'" class="' + liClass + '">' +
       '<div class="view"><input class="toggle" type="checkbox"' + 
         " data-id='" + task.id + "'" +
         checkedStatus +
@@ -33,10 +33,12 @@
         task: {
           done: doneValue
         }
-
-      }).success(function(data) {
-        console.log("Successfully Toggled");
-      } );
+    }).success(function(data) {
+      var liHtml = taskHtml(data);
+       var $li = $("#listItem-" + data.id);
+        $li.replaceWith(liHtml);
+         $('.toggle').change(toggleTask);
+    } );
     }
 
     $.get("/tasks").success( function( data ) {
@@ -72,4 +74,3 @@ $('#new-form').submit(function(event) {
 
 
   });
-</script>
