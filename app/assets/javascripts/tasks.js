@@ -1,29 +1,4 @@
-<section class="todoapp">
-  <header class="header">
-    <h1>todos</h1>
-    <form id="new-form">
-      <input type="text" class="new-todo" placeholder="What needs to be done?" />
-    </form>
-  </header>
-
-  <section class="main">
-    <ul class="todo-list">
-
-    </ul>
-  </section>
-</section>
-
-<section class="author">
-  A <%= link_to "todo-mvc", "http://todomvc.com" %>
-  application, built by
-  <%= link_to "Erik Young", "https://github.com/erikyoung" %>
-</section>
-
-
-<script>
-  $(function() {
-   
-
+$(function() {
     // The taskHtml method takes in a JavaScript representation
     // of the task and produces an HTML representation using
     // <li> tags
@@ -69,7 +44,8 @@
 
     });
 
-$('#new-form').submit(function(event) {
+
+    $('#new-form').submit(function(event) {
       event.preventDefault();
       var textbox = $('.new-todo');
       var payload = {
@@ -80,13 +56,9 @@ $('#new-form').submit(function(event) {
       $.post("/tasks", payload).success(function(data) {
         var htmlString = taskHtml(data);
         var ulTodos = $('.todo-list');
-        console.log(htmlString);
         ulTodos.append(htmlString);
         $('.toggle').click(toggleTask);
-        $('.new-todo').val('');
       });
     });
 
-
   });
-</script>
